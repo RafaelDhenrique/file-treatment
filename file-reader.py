@@ -1,24 +1,25 @@
-from collections import Counter
+
 
 class FileReader:
     def __init__(self, file):
         self.file = file
 
-
     def read_file(self):
-        bar_code_list = []
-        opened_file = open(self.file,'r', encoding= "UTF-8")
+        opened_file = open(self.file, 'r', encoding="UTF-8")
         opened_file = opened_file.read()
-        for barcode in opened_file.split(','):
-            bar_code_list.append(barcode.split())
+        bar_code_list = [barcode.split() for barcode in opened_file.split(',')]
 
         return bar_code_list
-    
-    def take_refs(self,index):
+
+    def take_refs(self, index):
         bar_code_list = self.read_file()
-        bar_code = ' '.join(bar_code_list[index])
-        print(type(bar_code))
-        
+        try:
+            bar_code = ' '.join(bar_code_list[index])
+            ref = bar_code[9:13]
+            return ref
+        except IndexError:
+            return print(f'O item selecionado não existe, selecione algum item da lista:{bar_code_list}')
+
     def take_values(self):
         pass
 
@@ -26,8 +27,5 @@ class FileReader:
         pass
 
 
-
-
-
 first_try = FileReader('file.txt')
-first_try.take_refs(0)
+first_try.take_refs(5)
