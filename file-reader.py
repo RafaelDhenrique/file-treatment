@@ -1,4 +1,4 @@
-
+import re
 
 class FileReader:
     def __init__(self, file):
@@ -13,12 +13,17 @@ class FileReader:
 
     def take_refs(self, index):
         bar_code_list = self.read_file()
+        bar_code = ' '.join(bar_code_list[index])
         try:
-            bar_code = ' '.join(bar_code_list[index])
-            ref = bar_code[9:13]
+            ref = bar_code[9:13].ljust(13)
             return ref
         except IndexError:
             return print(f'O item selecionado não existe, selecione algum item da lista:{bar_code_list}')
+
+    def validate_bar_code(self, barcode):
+        bar_code_pattern = re.compile('^[0-9]{13}$')
+        pass
+
 
     def take_values(self):
         pass
