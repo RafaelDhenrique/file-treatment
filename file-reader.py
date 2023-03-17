@@ -39,11 +39,5 @@ class FileReader:
         
         return
     
-
-
-        
-            
-    
-
 first_try = FileReader('file.txt')
 first_try.wrote_file('new-refs',0)
