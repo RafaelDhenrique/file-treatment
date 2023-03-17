@@ -10,27 +10,40 @@ class FileReader:
         bar_code_list = [barcode.split() for barcode in opened_file.split(',')]
 
         return bar_code_list
+            
+    
+    def validate_and_refs(self,index):
+        try:
+            bar_code = self.take_barcode(index)
+            bar_code_pattern = re.compile('^[0-9]{13}$')
+            
+            if bar_code_pattern.match(bar_code):
+                 ref = bar_code[9:13].ljust(13)
+            else:
+                raise ValueError
+        except ValueError:
+            print('The bar code is not valid')
 
-    def take_refs(self, index):
+        return ref
+
+    def take_barcode(self,index):
         bar_code_list = self.read_file()
         bar_code = ' '.join(bar_code_list[index])
-        try:
-            ref = bar_code[9:13].ljust(13)
-            return ref
-        except IndexError:
-            return print(f'O item selecionado não existe, selecione algum item da lista:{bar_code_list}')
 
-    def validate_bar_code(self, barcode):
-        bar_code_pattern = re.compile('^[0-9]{13}$')
-        pass
+        return bar_code
+            
+    def wrote_file(self, filename,index):
+        new_file = open(filename, 'x')
+        myref = self.validate_and_refs(index)
+        print(myref)
+        
+        return
+    
 
 
-    def take_values(self):
-        pass
-
-    def create_new_file(self):
-        pass
-
+        
+            
+    
 
 first_try = FileReader('file.txt')
-first_try.take_refs(5)
+first_try.wrote_file('new-refs',0)
