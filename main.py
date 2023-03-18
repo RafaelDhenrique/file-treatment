@@ -1,6 +1,6 @@
 from filereader import FileReader as fr
 
-#execute to get your references list from the file.txt
+#execute to get your references list from the file
 
 first_try = fr('file.txt')
 first_try.create_new_file('REFs-list')
